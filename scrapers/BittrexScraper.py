@@ -1,23 +1,35 @@
 #!/usr/bin/python
 import time
 from threading import Thread
-from scrapers.JSONscraper import fetch_data
-from scrapers.classes.coin import Coin
+from JSONscraper import fetch_data
+from classes.coin import Coin
 import queue
 # https://www.bittrex.com/Home/Api Bittrex API page
 
 
+def timeit(method):
+
+    def timed(*args, **kw):
+        ts = time.time()
+        result = method(*args, **kw)
+        te = time.time()
+
+        print ('%r (%r, %r) %2.2f sec' % \
+              (method.__name__, args, kw, te-ts))
+        return result
+
+    return timed
+
+
 # creates a Coin object for each type of currency from https://bittrex.com/api/v1.1/public/getcurrencies
+@timeit
 def initialize_coins():
-    start_time = time.time()
     currency_list = get_currencies()
     coins = []
     for dictionary in currency_list: # dictionary is currency info for a specific coin
         newCoin = Coin(dictionary)
         coins.append(newCoin)
     update_all_tickers(coins)
-    elapsed_time = time.time() - start_time
-    print(elapsed_time)
     return coins
 
 
@@ -55,7 +67,7 @@ def update_ticker_partition(coins): # allows threads to do their work. input is 
         update_ticker(coin)
 
 
-
+s
 # updates ticker for a coin from coin.
 def update_ticker(coin):
     print("tick")
@@ -64,5 +76,6 @@ def update_ticker(coin):
         coin.update_ticker(ticker)
     else:
         coin.update_ticker(None)
+
 
 print(initialize_coins())
