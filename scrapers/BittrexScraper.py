@@ -29,8 +29,8 @@ def get_currencies():
 
 # gets tick info for specific market and specific currency, returns dictionary, link parameter given by ?market=market-currency
 def get_ticker(currency,market):
-
-    ticker_catalog = fetch_data("https://bittrex.com/api/v1.1/public/getticker?market="+market+("-")+currency)
+    seq = ("https://bittrex.com/api/v1.1/public/getticker?market=", market, "-", currency) # sequence of strings that will be put together to create the URL for the API
+    ticker_catalog = fetch_data("".join(seq)) #puts the seq strings together
     return ticker_catalog
 
 # input is list containing Coin objects. Created t threads to quicker get all the ticker data from the API, and splits the
@@ -65,3 +65,4 @@ def update_ticker(coin):
     else:
         coin.update_ticker(None)
 
+print(initialize_coins())
