@@ -67,7 +67,7 @@ def update_ticker_partition(coins): # allows threads to do their work. input is 
         update_ticker(coin)
 
 
-s
+
 # updates ticker for a coin from coin.
 def update_ticker(coin):
     print("tick")
