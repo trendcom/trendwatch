@@ -1,13 +1,11 @@
-import urllib.request
+from urllib.request import urlopen
 import json
 
 
 def fetch_data(url):
 
-    with urllib.request.urlopen(url) as response:
-        data = json.loads(response.read().decode())
+    data = json.load(urlopen(url))
     return data
-
 
 
 
