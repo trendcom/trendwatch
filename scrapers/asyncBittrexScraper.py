@@ -44,7 +44,7 @@ async def initialize_coins():
         newCoin = Coin(dictionary)
         coins.append(newCoin)
     await update_all_tickers(coins)
-    return list_to_dict(list)
+    return list_to_dict(coins)
 
 
 # gets the info on all currencies, returns a list that contains dictionaries with information about each dictionary
@@ -65,10 +65,12 @@ async def update_all_tickers(coins):
     await asyncio.gather(
         *(update_ticker(coin) for coin in coins)
         )
+    print("gather done")
 
 
 # updates ticker for a Coin object.
 async def update_ticker(coin):
+    print("tick")
     ticker = await get_ticker(coin.get_currency(), "BTC")
     if ticker["success"] is True:
         coin.update_ticker(ticker)
@@ -79,8 +81,8 @@ coinList = []
 loop = asyncio.get_event_loop()
 #asyncio.ensure_future(initialize_coins())
 dicto = loop.run_until_complete(asyncio.gather(initialize_coins()))
-dicto = list[0]
-print(dict["BTC"].getCurrency())
+dicto = dicto[0]
+print(dicto["BTC"].get_currencyLong())
 #for coin in list:
     #print(coin.get_currency())
 
