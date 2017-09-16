@@ -1,9 +1,6 @@
 #!/usr/bin/python
 import time
-from threading import Thread
-from JSONscraper import fetch_data
 from classes.coin import Coin
-import queue
 import aiohttp
 import asyncio
 # https://www.bittrex.com/Home/Api Bittrex API page
@@ -73,8 +70,8 @@ loop = asyncio.get_event_loop()
 #asyncio.ensure_future(initialize_coins())
 list = loop.run_until_complete(asyncio.gather(initialize_coins()))
 list = list[0]
-#for coin in list:
-    #print(coin.get_currency())
+# for coin in list:
+#    print(coin.get_currency())
 
 
 
