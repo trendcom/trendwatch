@@ -1,7 +1,5 @@
 #!/usr/bin/python
 import time
-from threading import Thread
-from JSONscraper import fetch_data
 from classes.coin import Coin
 import aiohttp
 import asyncio
@@ -78,11 +76,18 @@ async def update_ticker(coin):
 coinList = []
 loop = asyncio.get_event_loop()
 #asyncio.ensure_future(initialize_coins())
+<<<<<<< HEAD
 dicto = loop.run_until_complete(asyncio.gather(initialize_coins()))
 dicto = list[0]
 print(dict["BTC"].getCurrency())
 #for coin in list:
     #print(coin.get_currency())
+=======
+list = loop.run_until_complete(asyncio.gather(initialize_coins()))
+list = list[0]
+# for coin in list:
+#    print(coin.get_currency())
+>>>>>>> develop
 
 
 
