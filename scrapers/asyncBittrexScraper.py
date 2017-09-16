@@ -1,7 +1,5 @@
 #!/usr/bin/python
 import time
-from threading import Thread
-from JSONscraper import fetch_data
 from classes.coin import Coin
 import aiohttp
 import asyncio
