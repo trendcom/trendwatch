@@ -1,8 +1,7 @@
 #!/usr/bin/python
 import time
-from threading import Thread
-from JSONscraper import fetch_data
 from classes.coin import Coin
+import queue
 import aiohttp
 import asyncio
 # https://www.bittrex.com/Home/Api Bittrex API page
@@ -26,14 +25,6 @@ def timeit(method):
         return result
 
     return timed
-# makes a dict with key = the short currency name, for example "BTC" and  value being the coin itself
-def list_to_dict(list):
-    returnDict = {}
-    for coin in list:
-        key = coin.get_currency()
-        returnDict[key] = coin
-    return returnDict
-
 
 # creates a Coin object for each type of currency from https://bittrex.com/api/v1.1/public/getcurrencies
 #@timeit
@@ -44,7 +35,7 @@ async def initialize_coins():
         newCoin = Coin(dictionary)
         coins.append(newCoin)
     await update_all_tickers(coins)
-    return list_to_dict(list)
+    return coins
 
 
 # gets the info on all currencies, returns a list that contains dictionaries with information about each dictionary
@@ -78,11 +69,23 @@ async def update_ticker(coin):
 coinList = []
 loop = asyncio.get_event_loop()
 #asyncio.ensure_future(initialize_coins())
+<<<<<<< Updated upstream
+list = loop.run_until_complete(asyncio.gather(initialize_coins()))
+list = list[0]
+=======
+<<<<<<< HEAD
 dicto = loop.run_until_complete(asyncio.gather(initialize_coins()))
 dicto = list[0]
 print(dict["BTC"].getCurrency())
+>>>>>>> Stashed changes
 #for coin in list:
     #print(coin.get_currency())
+=======
+list = loop.run_until_complete(asyncio.gather(initialize_coins()))
+list = list[0]
+# for coin in list:
+#    print(coin.get_currency())
+>>>>>>> develop
 
 
 
